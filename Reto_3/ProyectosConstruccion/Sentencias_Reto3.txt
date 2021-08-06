@@ -1,0 +1,35 @@
+SELECT ID_lider, Nombre || " " || Primer_Apellido || " " || Segundo_Apellido AS "Nombre completo" , Cargo FROM Lider LIMIT 100;
+
+SELECT mc.Nombre_Material , mc.Precio_Unidad , c.ID_Proyecto 
+FROM MaterialConstruccion mc 
+JOIN Compra c ON mc.ID_MaterialConstruccion = c.ID_MaterialConstruccion 
+JOIN Proyecto p ON c.ID_Proyecto = p.ID_Proyecto 
+WHERE mc.Importado = 'No' AND p.Constructora = 'Pegaso'
+
+SELECT Proveedor, SUM(Cantidad) AS "Cantidad total" FROM Compra GROUP BY Proveedor ORDER BY SUM(Cantidad)
+
+/*Pregunta 1*/
+SELECT ID_lider, Nombre || " " || Primer_Apellido || " " || Segundo_Apellido AS "Nombre completo" , Cargo FROM Lider LIMIT 100;
+
+/*Pregunta 2*/
+SELECT mc.Nombre_Material , mc.Precio_Unidad , c.ID_Proyecto 
+FROM MaterialConstruccion mc 
+JOIN Compra c ON mc.ID_MaterialConstruccion = c.ID_MaterialConstruccion 
+JOIN Proyecto p ON c.ID_Proyecto = p.ID_Proyecto 
+WHERE mc.Importado LIKE 'No' AND p.Constructora LIKE 'Pegaso'
+LIMIT 100;
+
+/*Pregunta 3*/
+SELECT Proveedor, SUM(Cantidad) AS "Cantidad total" FROM Compra GROUP BY Proveedor ORDER BY SUM(Cantidad)
+
+/*Pregunta 4*/
+SELECT p.ID_Proyecto , p.Numero_Banos, t.Estrato 
+FROM  Proyecto p JOIN Tipo t ON p.ID_Tipo = t.ID_Tipo
+WHERE p.Numero_Banos = '3'
+LIMIT 100;
+
+/*Pregunta 5*/
+SELECT p.Banco_Vinculado, SUM(l.Salario) AS "Costo de líderes" 
+FROM Proyecto p 
+JOIN Lider l ON p.ID_Lider = l.ID_Lider GROUP BY p.Banco_Vinculado 
+HAVING SUM(l.Salario) < 30000000
